@@ -4,11 +4,17 @@ import OrderNav from './OrderNav';
 
 function Order(props) {
 
-    console.log(props.orderState);
-
     const handlePlaceOrderClick = () => {
-        console.log(`i ran`);
-        localStorage.setItem(`newOrder`, JSON.stringify(props.orderState));
+        let localStorageValue = JSON.parse(localStorage.getItem(`newOrder`))
+        console.log(localStorageValue);
+        if (localStorageValue === null) {
+            localStorage.setItem(`newOrder`, JSON.stringify(props.orderState));
+        }   else {
+            let newLocalStorageValue = [localStorageValue, props.orderState];
+            localStorage.setItem(`newOrder`, JSON.stringify(newLocalStorageValue));
+        }
+        
+        console.log(localStorage.getItem(`newOrder`));
         props.setPageDisplayed(4);
     }
 
